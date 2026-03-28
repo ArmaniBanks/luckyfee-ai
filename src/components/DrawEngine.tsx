@@ -1,19 +1,37 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Trophy, Timer, Crown, Gift, Loader2, Clock, Users } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Trophy, Timer, Crown, Gift, Loader2, Users } from 'lucide-react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { usePool } from '@/hooks/usePool';
 import { shortenAddress, formatSol } from '@/lib/constants';
 
 export default function DrawEngine() {
-  const { participantCount, rewardPool, timeRemaining, recentDraws, claimReward } = usePool();
+  const { participantCount, rewardPool, timeRemaining: serverTime, recentDraws, claimReward } = usePool();
   const { publicKey } = useWallet();
   const [claimingId, setClaimingId] = useState<string | null>(null);
   const [claimMsg, setClaimMsg] = useState('');
+  const [localTime, setLocalTime] = useState(300);
+  const lastServerTime = useRef(serverTime);
 
-  const minutes = Math.floor(timeRemaining / 60);
-  const seconds = timeRemaining % 60;
+  // Sync with server time when it changes
+  useEffect(() => {
+    if (serverTime !== lastServerTime.current) {
+      setLocalTime(serverTime);
+      lastServerTime.current = serverTime;
+    }
+  }, [serverTime]);
+
+  // Local countdown ticks every second
+  useEffect(() => {
+    const id = setInterval(() => {
+      setLocalTime((prev) => (prev <= 0 ? 0 : prev - 1));
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const minutes = Math.floor(localTime / 60);
+  const seconds = localTime % 60;
   const myWallet = publicKey?.toBase58();
 
   async function handleClaim(drawId: string) {
@@ -66,7 +84,7 @@ export default function DrawEngine() {
         </div>
 
         <p className="text-xs text-bags-muted">
-          The draw executes automatically when the timer reaches zero. A random winner receives 100% of the pool. No manual intervention needed.
+          The draw executes automatically when the timer reaches zero. A random winner receives 98% of the pool. 2% is retained as Bags trading fee.
         </p>
       </div>
 
