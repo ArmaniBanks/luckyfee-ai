@@ -8,7 +8,6 @@ import {
   SystemProgram,
   Transaction,
   LAMPORTS_PER_SOL,
-  sendAndConfirmTransaction,
 } from '@solana/web3.js';
 import bs58 from 'bs58';
 
@@ -28,7 +27,7 @@ function getTreasuryKeypair(): Keypair | null {
 
 function getConnection(): Connection {
   const rpc = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || 'https://api.mainnet-beta.solana.com';
-  return new Connection(rpc, 'confirmed');
+  return new Connection(rpc, { commitment: 'confirmed', wsEndpoint: undefined });
 }
 
 // POST /api/claim — winner claims, server sends SOL from treasury
@@ -97,9 +96,24 @@ export async function POST(req: NextRequest) {
 
     let signature: string;
     try {
-      signature = await sendAndConfirmTransaction(connection, tx, [treasuryKeypair], {
-        commitment: 'confirmed',
+      // Get blockhash and sign
+      const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash('confirmed');
+      tx.recentBlockhash = blockhash;
+      tx.feePayer = treasuryKeypair.publicKey;
+      tx.sign(treasuryKeypair);
+
+      // Send raw transaction
+      signature = await connection.sendRawTransaction(tx.serialize(), {
+        skipPreflight: false,
+        preflightCommitment: 'confirmed',
       });
+
+      // Poll for confirmation — no WebSocket
+      for (let i = 0; i < 30; i++) {
+        await new Promise((r) => setTimeout(r, 1000));
+        const status = await connection.getSignatureStatus(signature);
+        if (status?.value?.confirmationStatus === 'confirmed' || status?.value?.confirmationStatus === 'finalized') break;
+      }
     } catch (txErr: any) {
       // Unlock on transaction failure
       await db.collection('draws').updateOne(
