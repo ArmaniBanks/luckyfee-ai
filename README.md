@@ -1,20 +1,44 @@
 # LuckyFee AI
 
-A decentralized fee-sharing reward pool on Solana, powered by [Bags](https://bags.fm/apps).
+A live onchain fee-sharing reward pool on Solana, powered by Bags.
 
-Users join a pool by sending 0.01 SOL. Every 5 minutes, a random winner is selected and receives 98% of the pool. The remaining 2% is retained as a Bags trading fee.
+LuckyFee AI allows users to participate in reward pools, choose their risk level, and earn based on activity. The system is designed for real-time participation, not passive holding.
+
+## Key Features
+
+- Three reward pool tiers:
+  - 0.01 SOL
+  - 0.05 SOL
+  - 0.1 SOL
+- All pools run simultaneously
+- 5-minute round cycles
+- Winners receive 98% of each pool
+- Real-time tracking of entries, participants, and volume
 
 ## How It Works
 
-1. Connect your Solana wallet
-2. Enter the pool (0.01 SOL per entry)
-3. Wait for the 5-minute round to end
-4. A winner is randomly selected
-5. Winner clicks "Claim" to receive SOL directly to their wallet
+1. Connect your Solana wallet  
+2. Choose a pool based on your preferred risk level  
+3. Enter the selected pool  
+4. Wait for the 5-minute round to complete  
+5. Winners claim SOL directly to their wallet  
 
-Even a single participant wins their round.
+## Live Product
+
+https://luckyfee.xyz
+
+## Tech Stack
+
+- Solana
+- Bags fee-sharing infrastructure
+- Web frontend (Next.js) with real-time tracking
+
+## Notes
+
+LuckyFee AI focuses on active participation. Users can track entries, wins, and volume as they happen, making the system transparent and easy to follow.
 
 ## Links
 
-- [Bags](https://bags.fm/apps)
-- [Bags API Docs](https://docs.bags.fm)
+- Live App: https://luckyfee.xyz
+- Bags: https://bags.fm/apps
+- Bags API Docs: https://docs.bags.fm
