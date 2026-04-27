@@ -23,6 +23,23 @@ LuckyFee AI allows users to participate in reward pools, choose their risk level
 4. Wait for the 5-minute round to complete  
 5. Winners claim SOL directly to their wallet  
 
+## Screenshots
+
+### Pool (Live Entry)
+![Pool](https://raw.githubusercontent.com/ArmaniBanks/luckyfee-ai/main/pool.png)
+
+### Dashboard (Analytics)
+![Dashboard](https://raw.githubusercontent.com/ArmaniBanks/luckyfee-ai/main/dashboard.png)
+
+### Draw (Winners & Payouts)
+![Draw](https://raw.githubusercontent.com/ArmaniBanks/luckyfee-ai/main/draw.png)
+
+### Leaderboard (Top Participants)
+![Leaderboard](https://raw.githubusercontent.com/ArmaniBanks/luckyfee-ai/main/leaderboard.png)
+
+### Bags Feed (Ecosystem Integration)
+![Bags Feed](https://raw.githubusercontent.com/ArmaniBanks/luckyfee-ai/main/bagsfeed.png)
+
 ## Live Product
 
 https://luckyfee.xyz
