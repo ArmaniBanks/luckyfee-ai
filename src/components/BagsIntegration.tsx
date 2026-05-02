@@ -14,7 +14,8 @@ const STEPS = [
 ];
 
 export default function BagsIntegration() {
-  const { totalVolume, totalDraws, rewardPool } = usePool();
+  const { totalVolume, totalDraws, pools } = usePool();
+  const totalRewardPool = pools.reduce((s, p) => s + p.rewardPool, 0);
   return (
     <div className="space-y-6">
       <div className="card bg-gradient-to-br from-bags-card to-bags-accent/5 border-bags-accent/20">
