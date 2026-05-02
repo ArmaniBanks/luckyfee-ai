@@ -5,12 +5,13 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Zap, BarChart3, Trophy, Coins } from 'lucide-react';
+import { Zap, BarChart3, Trophy, Coins, Medal } from 'lucide-react';
 
 const NAV = [
   { path: '/', label: 'Pool', icon: Zap },
   { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
   { path: '/draw', label: 'Draw', icon: Trophy },
+  { path: '/leaderboard', label: 'Leaderboard', icon: Medal },
   { path: '/bags', label: 'Bags Feed', icon: Coins },
 ];
 
