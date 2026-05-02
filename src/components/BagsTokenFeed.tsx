@@ -64,7 +64,7 @@ export default function BagsTokenFeed() {
 function TokenRow({ token, demo }: { token: any; demo?: boolean }) {
   const statusColors: Record<string, string> = { PRE_LAUNCH: 'badge-yellow', ACTIVE: 'badge-green', COMPLETED: 'badge-purple', MIGRATED: 'badge-green' };
   const tokenUrl = token.tokenMint && !demo
-    ? `https://bags.fm/token/${token.tokenMint}`
+    ? `https://bags.fm/${token.tokenMint}`
     : `https://bags.fm/apps`;
 
   return (
